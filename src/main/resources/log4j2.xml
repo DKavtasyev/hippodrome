@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="info" name="MyApp">
+	<Appenders>
+		<RollingFile name="RollingFile" fileName="logs/hippodrome.log" filePattern="logs/hippodrome.%d{yyyy-MM-dd}.%i.log">
+			<PatternLayout>
+				<Pattern>%d %p %c{1}: %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<OnStartUpTriggeringPolicy/>
+				<TimeBasedTriggeringPolicy interval="24"/>
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="logs/">
+					<IfFileName glob="hippodrome.*" />
+					<IfLastModified age="P7D" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		<Console name="STDOUT" target="SYSTEM_ERR">
+			<PatternLayout pattern="%d %p %c{1}: %m%n"/>
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="RollingFile"/>
+			<AppenderRef ref="STDOUT"/>
+		</Root>
+	</Loggers>
+</Configuration>
